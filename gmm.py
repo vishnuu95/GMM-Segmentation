@@ -86,9 +86,9 @@ def gmm_init(name): # passed
     global model
     np.random.seed(40)
     mean_ = {}
-    mean_["Green"] = np.array([110, 190, 110])
-    mean_["Yellow"] = np.array([110, 240, 230])
-    mean_["Orange"] = np.array([80, 140, 250])
+    mean_["Green"] = np.array([70, 120, 70])#np.array([110, 190, 110])
+    mean_["Yellow"] = np.array([70, 190, 180])#np.array([110, 240, 230])
+    mean_["Orange"] = np.array([30, 90, 200])#np.array([80, 140, 250])
     for i in range(3):
         mean = mean_[name] + np.random.randint(50,size=3)
         # print(mean)
@@ -148,13 +148,13 @@ if __name__=="__main__":
         directory = "/home/vishnuu/UMD/ENPM673/Perception_Projects/GMM-based-segmentation"
         train_data = load_data(directory, name)
         # test_data = load_data(diretory, name, "test")
-        n_runs = 10
+        n_runs = 5
         while(n_runs):
             prev_mean = [model["0"][0], model["1"][0], model["2"][0]]
             # print(prev_mean)
             for path in train_data:
                 
-                # path = train_data.pop(0)
+                # 0 = train_data.pop(0)
                 # print(path)
                 # path = "./Green_Buoys/gblob34.jpg" 
                 img = cv2.imread((path))
@@ -197,8 +197,10 @@ if __name__=="__main__":
     # print(gmm_models["Orange"]["1"])
     # print(gmm_models["Orange"]["2"])
     # input()
+    print('Training results: ')
     for name in names:
-        test_data = load_data(directory, name, "test")
+        test_data = load_data(directory, name, "training")
+        results_ = np.array([])
         for path in test_data:
             img = cv2.imread((path))
             # cv2.imshow("t",img )
@@ -210,7 +212,28 @@ if __name__=="__main__":
             img = np.delete(img, indices[0], axis = 0) 
             # print(img.shape)
             results = test_model(img, name)
-            print (results)
-        print ("------------------------------------------")
+            # print (results)
+            results_ = np.append(results_, results)
+        print(name + ": ", np.mean(results_))    
+        
+    print('Test results: ')
+    for name in names:
+        test_data = load_data(directory, name, "test")
+        results_ = np.array([])
+        for path in test_data:
+            img = cv2.imread((path))
+            # cv2.imshow("t",img )
+            # cv2.waitKey(0)
+            # print(img.shape)
+            img = np.reshape(img, (1, img.shape[0]*img.shape[1], 3))
+            img = np.squeeze(img)
+            indices = np.where(img == np.array([255,255,255]))
+            img = np.delete(img, indices[0], axis = 0) 
+            # print(img.shape)
+            results = test_model(img, name)
+            # print (results)
+            results_ = np.append(results_, results)
+        print(name + ": ", np.mean(results_))    
+        
                 
         

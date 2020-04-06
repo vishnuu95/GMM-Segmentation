@@ -2,7 +2,7 @@ import numpy as np
 import glob
 import argparse
 import os
-np.random.seed(20)
+# np.random.seed(0)
 
 def generate_split(greenblob, yellowblob, orangeblob):
 
@@ -25,6 +25,7 @@ def generate_split(greenblob, yellowblob, orangeblob):
 
 		filelist = names[key][0]
 		index = np.arange(0, len(names[key][0]))
+		np.random.seed(40)
 		np.random.shuffle(index)
 		i = 0
 		training = names[key][1]
@@ -41,9 +42,9 @@ def generate_split(greenblob, yellowblob, orangeblob):
 if __name__ == '__main__':
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--greenblob', default='./Green_Buoys', help='Path where the green blobs ae stored')
-	parser.add_argument('--yellowblob', default='./Yellow_Buoys', help='Path where the yellow blobs ae stored')
-	parser.add_argument('--orangeblob', default='./Orange_Buoys', help='Path where the orange blobs ae stored')
+	parser.add_argument('--greenblob', default='./Green_Buoys_backup', help='Path where the green blobs ae stored')
+	parser.add_argument('--yellowblob', default='./Yellow_Buoys_backup', help='Path where the yellow blobs ae stored')
+	parser.add_argument('--orangeblob', default='./Orange_Buoys_backup', help='Path where the orange blobs ae stored')
 	Flags = parser.parse_args()
 
 	generate_split(Flags.greenblob, Flags.yellowblob, Flags.orangeblob)

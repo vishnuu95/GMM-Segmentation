@@ -112,9 +112,9 @@ def gmm_train():
                 if name == "Yellow":
                     # img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
                     img = img[int(img.shape[0]*0.35) :, :]
-                if name == "Orange":
-                    cv2.imshow("yell", img)
-                    cv2.waitKey(0)
+                # if name == "Orange":
+                #     cv2.imshow("yell", img)
+                #     cv2.waitKey(0)
                 img = np.reshape(img, (1, img.shape[0]*img.shape[1], 3))
                 img = np.squeeze(img)
                 if name == "Orange":

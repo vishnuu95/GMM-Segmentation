@@ -23,12 +23,13 @@ def maskCreation(img,point,rad):
 	#cv2.waitKey(0)
 	return result
 
+
 def main():
-	'''
+	
 	fname = './detectbuoy.avi'
 	tarname = './Detection'
 	videoToImage(fname,tarname)
-	'''
+	
 	p = []
 	c = 0
 	while(c<200):
@@ -52,7 +53,7 @@ def main():
 					l = math.floor(math.sqrt((r_point[0][0]- r_point[1][0])**2 + (r_point[0][1]- r_point[1][1])**2))
 					RO = maskCreation(img,r_point,l)
 					#roi = img[r_point[0][1]-l:r_point[0][1]+l, r_point[0][0]-l:r_point[0][0]+l]
-					cv2.imwrite('yblob'+str(c)+'.jpg',RO)
+					cv2.imwrite('gblob'+str(c)+'.png',RO)
 		cv2.imshow("output",img)
 		cv2.setMouseCallback("output", mouse_drawing,img)
 		cv2.waitKey(0)
@@ -60,6 +61,13 @@ def main():
 		c+=1
 		print(c)
 
+'''
+def main():
+	#i = cv2.imread('./Orange_Buoys/oblob55.jpg')
+	i = cv2.imread('./yblob0.png')
+	cv2.imshow("Output",i)
+	cv2.waitKey(0)
+'''
 	
 
 if __name__ == '__main__':

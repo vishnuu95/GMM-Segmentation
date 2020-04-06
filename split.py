@@ -2,7 +2,7 @@ import numpy as np
 import glob
 import argparse
 import os
-np.random.seed(0)
+np.random.seed(20)
 
 def generate_split(greenblob, yellowblob, orangeblob):
 

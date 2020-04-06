@@ -52,7 +52,7 @@ def main():
 					l = math.floor(math.sqrt((r_point[0][0]- r_point[1][0])**2 + (r_point[0][1]- r_point[1][1])**2))
 					RO = maskCreation(img,r_point,l)
 					#roi = img[r_point[0][1]-l:r_point[0][1]+l, r_point[0][0]-l:r_point[0][0]+l]
-					cv2.imwrite('oblob'+str(c)+'.jpg',RO)
+					cv2.imwrite('yblob'+str(c)+'.jpg',RO)
 		cv2.imshow("output",img)
 		cv2.setMouseCallback("output", mouse_drawing,img)
 		cv2.waitKey(0)

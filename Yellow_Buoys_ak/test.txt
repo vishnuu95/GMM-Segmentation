@@ -1,0 +1,14 @@
+./Yellow_Buoys_ak/frame175.png 
+./Yellow_Buoys_ak/frame143.png 
+./Yellow_Buoys_ak/frame196.png 
+./Yellow_Buoys_ak/frame187.png 
+./Yellow_Buoys_ak/frame144.png 
+./Yellow_Buoys_ak/frame174.png 
+./Yellow_Buoys_ak/frame156.png 
+./Yellow_Buoys_ak/frame195.png 
+./Yellow_Buoys_ak/frame146.png 
+./Yellow_Buoys_ak/frame132.png 
+./Yellow_Buoys_ak/frame183.png 
+./Yellow_Buoys_ak/frame141.png 
+./Yellow_Buoys_ak/frame167.png 
+./Yellow_Buoys_ak/frame137.png 

@@ -13,6 +13,10 @@ def gmm_predict(img, prob, model_pass = None, train = True):
     else:
         model_ = model
     for i in range(len(model_)):
+        # print(model_[str(i)][2])
+        # if model_[str(i)][2] == 0:
+        #     print(i)
+        #     continue
         prob[:,i] = mvn.pdf(img, model_[str(i)][0], model_[str(i)][1])
 
     if train == True:
@@ -47,10 +51,10 @@ def gmm_init(name): # passed
     # mean_["Green"] = np.array([110, 190, 110]) #np.array([70, 120, 70])
     mean_["Green"] = np.array([70, 120, 70])
     # mean_["Yellow"] = np.array([110, 240, 230]) #np.array([70, 190, 180])
-    mean_["Yellow"] = np.array([70, 190, 180])
+    mean_["Yellow"] = np.array([70, 190, 200])
     # mean_["Orange"] = np.array([80, 140, 250]) #np.array([30, 90, 200])
     mean_["Orange"] = np.array([30, 90, 200])
-    for i in range(3):
+    for i in range(2):
         mean = mean_[name] + np.random.randint(60,size=3)
         mat = np.random.randint(0, high = 60, size=(3,3))
         mat = np.matmul(mat, mat.T)
@@ -59,7 +63,7 @@ def gmm_init(name): # passed
         model[str(i)] = [mean, mat, mat_det] 
 
 def load_data(directory, name, split="training"):
-    filepath = os.path.join(directory, name + "_Buoys_backup")
+    filepath = os.path.join(directory, name + "_Buoys_ak")
     files = open(os.path.join(filepath, split + ".txt"), 'r')
     data = [line.rstrip() for line in files.readlines()]
 
@@ -98,17 +102,26 @@ def gmm_train():
         # print(len(train_data))
         # exit(-1)
         # test_data = load_data(diretory, name, "test")
-        n_runs = 100
+        n_runs = 10
         while(n_runs):
             # print (n_runs)
-            prev_mean = [model["0"][0], model["1"][0], model["2"][0]]
+            # prev_mean = [model["0"][0], model["1"][0], model["2"][0]]
             # print(prev_mean)
             for path in train_data: 
                 img = cv2.imread((path))
+                if name == "Yellow":
+                    # img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+                    img = img[int(img.shape[0]*0.35) :, :]
+                if name == "Orange":
+                    cv2.imshow("yell", img)
+                    cv2.waitKey(0)
                 img = np.reshape(img, (1, img.shape[0]*img.shape[1], 3))
                 img = np.squeeze(img)
-                indices = np.where(img == np.array([255,255,255]))
-                # indices = np.where(img == np.array([0]*3))
+                if name == "Orange":
+                    indices = np.where(img == np.array([255,255,255]))
+                # print(indices)
+                else:
+                    indices = np.where(img == np.array([0]*3))
                 img = np.delete(img, indices[0], axis = 0) 
                 prob = np.zeros(img.shape)
                 prob = gmm_predict(img, prob)
@@ -116,6 +129,8 @@ def gmm_train():
             n_runs -= 1
 
         gmm_models[name] = model
+        print(model)
+    # exit(-1)
     return gmm_models
 
 if __name__=="__main__":
@@ -131,14 +146,14 @@ if __name__=="__main__":
         # test_data = load_data(diretory, name, "test")
         n_runs = 5
         while(n_runs):
-            prev_mean = [model["0"][0], model["1"][0], model["2"][0]]
+            # prev_mean = [model["0"][0], model["1"][0], model["2"][0]]
             # print(prev_mean)
             for path in train_data: 
                 img = cv2.imread((path))
                 img = np.reshape(img, (1, img.shape[0]*img.shape[1], 3))
                 img = np.squeeze(img)
-                indices = np.where(img == np.array([255,255,255]))
-                # indices = np.where(img == np.array([0, 0, 0]))
+                # indices = np.where(img == np.array([255,255,255]))
+                indices = np.where(img == np.array([0, 0, 0]))
                 img = np.delete(img, indices[0], axis = 0) 
                 prob = np.zeros(img.shape)
                 prob = gmm_predict(img, prob)
@@ -170,8 +185,8 @@ if __name__=="__main__":
             img = cv2.imread((path))
             img = np.reshape(img, (1, img.shape[0]*img.shape[1], 3))
             img = np.squeeze(img)
-            indices = np.where(img == np.array([255,255,255]))
-            # indices = np.where(img == np.array([0, 0, 0]))
+            # indices = np.where(img == np.array([255,255,255]))
+            indices = np.where(img == np.array([0, 0, 0]))
             img = np.delete(img, indices[0], axis = 0) 
             results = test_model(img, name)
             results_ = np.append(results_, results)

@@ -6,8 +6,8 @@ import os
 
 def generate_split(greenblob, yellowblob, orangeblob):
 
-	greenFiles = np.sort(glob.glob(os.path.join(greenblob, '*.jpg'), recursive=False))
-	yellowFiles = np.sort(glob.glob(os.path.join(yellowblob, '*.jpg'), recursive=False))
+	greenFiles = np.sort(glob.glob(os.path.join(greenblob, '*.png'), recursive=False))
+	yellowFiles = np.sort(glob.glob(os.path.join(yellowblob, '*.png'), recursive=False))
 	orangeFiles = np.sort(glob.glob(os.path.join(orangeblob, '*.jpg'), recursive=False))
 
 	green_training = open(os.path.join(greenblob, 'training.txt'), 'w+')
@@ -42,9 +42,9 @@ def generate_split(greenblob, yellowblob, orangeblob):
 if __name__ == '__main__':
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--greenblob', default='./Green_Buoys_backup', help='Path where the green blobs ae stored')
-	parser.add_argument('--yellowblob', default='./Yellow_Buoys_backup', help='Path where the yellow blobs ae stored')
-	parser.add_argument('--orangeblob', default='./Orange_Buoys_backup', help='Path where the orange blobs ae stored')
+	parser.add_argument('--greenblob', default='./Green_Buoys_ak', help='Path where the green blobs ae stored')
+	parser.add_argument('--yellowblob', default='./Yellow_Buoys_ak', help='Path where the yellow blobs ae stored')
+	parser.add_argument('--orangeblob', default='./Orange_Buoys_ak', help='Path where the orange blobs ae stored')
 	Flags = parser.parse_args()
 
 	generate_split(Flags.greenblob, Flags.yellowblob, Flags.orangeblob)

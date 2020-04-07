@@ -8,7 +8,7 @@ def generate_split(greenblob, yellowblob, orangeblob):
 
 	greenFiles = np.sort(glob.glob(os.path.join(greenblob, '*.png'), recursive=False))
 	yellowFiles = np.sort(glob.glob(os.path.join(yellowblob, '*.png'), recursive=False))
-	orangeFiles = np.sort(glob.glob(os.path.join(orangeblob, '*.jpg'), recursive=False))
+	orangeFiles = np.sort(glob.glob(os.path.join(orangeblob, '*.png'), recursive=False))
 
 	green_training = open(os.path.join(greenblob, 'training.txt'), 'w+')
 	green_test = open(os.path.join(greenblob, 'test.txt'), 'w+')

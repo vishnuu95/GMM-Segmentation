@@ -97,7 +97,7 @@ def gmm_train():
     for name in names:
         model = {}
         gmm_init(name)
-        directory = "/home/vishnuu/UMD/ENPM673/Perception_Projects/GMM-based-segmentation"
+        directory = "./"
         train_data = load_data(directory, name)
         # print(len(train_data))
         # exit(-1)
